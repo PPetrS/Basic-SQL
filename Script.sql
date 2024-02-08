@@ -1,3 +1,6 @@
+-- Search the database for cases where there is an EPZP or EPZP-man classification 
+-- and sort them primarily by debt size and secondarily by date
+
 SELECT  
 	eazv.c_zk, 
 	date(eazv.t_stam_prn) as 'založeno', 
