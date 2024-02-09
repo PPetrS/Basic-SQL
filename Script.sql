@@ -18,3 +18,14 @@ SELECT
 FROM eau 
 WHERE c_up IN (1062, 1607)
 AND EXISTS (SELECT * FROM eau eauEND WHERE eau.c_zk=eauEND.c_zk and eauEND.c_up=598 and eauEND.DT_UR>(today()-10));
+
+
+-- Search CUP documents by date range between 17.05.2023 and 22.06.2023
+SELECT 
+	c_zk, 
+	dt_u, 
+	dt_ur, 
+	c_spis, 
+	POPIS_U 
+FROM eau 
+WHERE c_up = 1013 AND dt_u BETWEEN 20171001 AND 20171031;
