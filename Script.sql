@@ -29,3 +29,12 @@ SELECT
 	POPIS_U 
 FROM eau 
 WHERE c_up = 1013 AND dt_u BETWEEN 20171001 AND 20171031;
+
+
+-- Search for active cases for the sale of immovable property subject to pledge
+SELECT DISTINCT 
+	eaz.c_zk, 
+	G_EX, 
+	TYP 
+FROM eaz JOIN eau ON eaz.c_zk = eau.c_zk 
+WHERE eaz.IND_AKTIV = 'A' AND eaz.typ = 'Z';
