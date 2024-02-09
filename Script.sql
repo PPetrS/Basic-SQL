@@ -38,3 +38,12 @@ SELECT DISTINCT
 	TYP 
 FROM eaz JOIN eau ON eaz.c_zk = eau.c_zk 
 WHERE eaz.IND_AKTIV = 'A' AND eaz.typ = 'Z';
+
+
+-- Build a SQL query on selected individual cases, looking for the number of issued "EPN" by date and the number of "LV"
+SELECT DISTINCT 
+	c_zk, 
+	(select count() from eau eauEPN where eau.c_zk=eauEPN.c_zk and eauEPN.c_up = 1016) as 'EPN', 
+	(select count() from eau eauLV where eau.c_zk=eauLV.c_zk and eauLV.c_up = 13 and eauLV.dt_ur<20171001) as 'LV' 
+FROM eau 
+WHERE c_up IN (13, 1016) and xcnull(ind_nepl)<>'A' and c_zk IN ( -- individual cases )
