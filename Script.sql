@@ -46,4 +46,13 @@ SELECT DISTINCT
 	(select count() from eau eauEPN where eau.c_zk=eauEPN.c_zk and eauEPN.c_up = 1016) as 'EPN', 
 	(select count() from eau eauLV where eau.c_zk=eauLV.c_zk and eauLV.c_up = 13 and eauLV.dt_ur<20171001) as 'LV' 
 FROM eau 
-WHERE c_up IN (13, 1016) and xcnull(ind_nepl)<>'A' and c_zk IN ( -- individual cases )
+WHERE c_up IN (13, 1016) and xcnull(ind_nepl)<>'A' and c_zk IN ( -- individual cases );
+
+
+-- Look for cases with a principal amount higher than 250 000 Kc
+SELECT c_zk, 
+	sum(f_castka) as 'Jistina' 
+FROM eaf
+WHERE f_typ='J' and exists(select * from eaz where eaz.c_zk=eaf.c_zk and xcnull(eaz.IND_AKTIV)<>'N')
+GROUP BY c_zk
+HAVING sum(f_castka)>250000;
